@@ -1,24 +1,31 @@
 def obter_dados():
     print("===== NUTRIFIT ADVISOR =====\n")
     nome = input("Digite seu nome: ")
-    idade = int(input("Digite sua idade: "))
+
+    while True:
+        idade = int(input("Digite sua idade: "))
+        if idade > 0:
+            break
+        print("Idade inválida.")
+
     sexo = input("Digite seu sexo (M/F): ")
-    peso = float(input("Digite seu peso (kg): ").replace(",", "."))
-    altura = float(input("Digite sua altura (m): ").replace(",", "."))
+
+    while True:
+        peso = float(
+            input("Digite seu peso (kg): ").replace(",", "."))
+        if peso > 0:
+            break
+        print("Peso inválido.")
+
+    while True:
+        altura = float(
+            input("Digite sua altura (m): ").replace(",", "."))
+        if altura > 0:
+            break
+        print("Altura inválida.")
+
     return nome, idade, sexo, peso, altura
 
-while True:
-    idade = int(input("Digite sua idade: "))
-    if idade > 0:
-        break
-    print("Idade inválida.")
-
-while True:
-    peso = float(
-        input("Digite seu peso (kg): ").replace(",", "."))
-    if peso > 0:
-        break
-    print("Peso inválido.")
 
 def calcular_imc(peso, altura):
     imc = peso / (altura ** 2)
@@ -36,6 +43,7 @@ def classificar_imc(imc):
 
 def escolher_objetivo():
     print("\n===== OBJETIVO =====")
+
     print("1 - Ganhar Massa Muscular")
     print("2 - Emagrecer")
     print("3 - Manter Peso")
@@ -51,112 +59,113 @@ Hipercalórico
 Whey Concentrado
 Creatina
 """
+
         elif imc < 25:
             return """
 Whey Concentrado
 Creatina
 """
+
         else:
             return """
 Whey Concentrado
 Creatina
 """
+
     elif objetivo == "2":
         return """
 Whey Isolado
 Creatina
 """
+
     elif objetivo == "3":
         return """
 Whey Concentrado
 """
+
     else:
         return "Objetivo inválido."
 
+
 def mostrar_relatorio(
-        nome,
-        idade,
-        sexo,
-        peso,
-        altura,
-        imc,
-        classificacao,
-        suplemento):
+    nome,
+    idade,
+    sexo,
+    peso,
+    altura,
+    imc,
+    classificacao,
+    suplemento):
 
     print("\n")
     print("=" * 40)
     print("RELATÓRIO FINAL")
     print("=" * 40)
+
     print(f"Nome: {nome}")
     print(f"Idade: {idade} anos")
     print(f"Sexo: {sexo}")
     print(f"Peso: {peso} kg")
     print(f"Altura: {altura} m")
+
     print(f"\nIMC: {imc:.2f}")
+
     print(f"Classificação: {classificacao}")
+
     print("\nSuplementação Recomendada:")
     print(suplemento)
-    print("=" * 40)
 
-def main():
-    nome, idade, sexo, peso, altura = obter_dados()
-    imc = calcular_imc(peso, altura)
-    classificacao = classificar_imc(imc)
-    objetivo = escolher_objetivo()
-    suplemento = recomendar_suplemento(
-        imc,
-        objetivo
-    )
-    mostrar_relatorio(
-        nome,
-        idade,
-        sexo,
-        peso,
-        altura,
-        imc,
-        classificacao,
-        suplemento
-    )
+    print("=" * 40)
 
 def salvar_historico(nome, imc, classificacao):
 
     with open("historico.txt", "a", encoding="utf-8") as arquivo:
         arquivo.write(
-            f"{nome} | IMC: {imc:.2f} | {classificacao}\n")
+            f"{nome} | IMC: {imc:.2f} | {classificacao}\n"
+        )
 
 
 def main():
 
-    nome, idade, sexo, peso, altura = obter_dados()
+    while True:
+        nome, idade, sexo, peso, altura = obter_dados()
 
-    imc = calcular_imc(peso, altura)
+        imc = calcular_imc(
+            peso,
+            altura)
 
-    classificacao = classificar_imc(imc)
+        classificacao = classificar_imc(
+            imc)
 
-    objetivo = escolher_objetivo()
+        objetivo = escolher_objetivo()
 
-    suplemento = recomendar_suplemento(
-        imc,
-        objetivo
-    )
+        suplemento = recomendar_suplemento(
+            imc,
+            objetivo)
 
-    mostrar_relatorio(
-        nome,
-        idade,
-        sexo,
-        peso,
-        altura,
-        imc,
-        classificacao,
-        suplemento
-    )
+        mostrar_relatorio(
+            nome,
+            idade,
+            sexo,
+            peso,
+            altura,
+            imc,
+            classificacao,
+            suplemento)
 
-    salvar_historico(
-        nome,
-        imc,
-        classificacao)
-    
-    salvar_historico(
-    nome,
-    imc,
-    classificacao)
+        salvar_historico(
+            nome,
+            imc,
+            classificacao)
+
+        print("\n===== NOVA CONSULTA =====")
+        print("1 - Sim")
+        print("2 - Não")
+
+        continuar = input("Deseja realizar outra consulta? ")
+
+        if continuar != "1":
+            print("\nObrigado por utilizar o NutriFit Advisor!")
+            break
+
+main()
