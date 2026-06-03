@@ -3,9 +3,22 @@ def obter_dados():
     nome = input("Digite seu nome: ")
     idade = int(input("Digite sua idade: "))
     sexo = input("Digite seu sexo (M/F): ")
-    peso = float(input("Digite seu peso (kg): "))
+    peso = float(input("Digite seu peso (kg): ").replace(",", "."))
     altura = float(input("Digite sua altura (m): ").replace(",", "."))
     return nome, idade, sexo, peso, altura
+
+while True:
+    idade = int(input("Digite sua idade: "))
+    if idade > 0:
+        break
+    print("Idade inválida.")
+
+while True:
+    peso = float(
+        input("Digite seu peso (kg): ").replace(",", "."))
+    if peso > 0:
+        break
+    print("Peso inválido.")
 
 def calcular_imc(peso, altura):
     imc = peso / (altura ** 2)
@@ -105,5 +118,15 @@ def main():
         suplemento
     )
 
+def salvar_historico(nome, imc, classificacao):
+
+    with open("historico.txt", "a", encoding="utf-8") as arquivo:
+        arquivo.write(
+            f"{nome} | IMC: {imc:.2f} | {classificacao}\n")
+
+salvar_historico(
+    nome,
+    imc,
+    classificacao)
 
 main()
