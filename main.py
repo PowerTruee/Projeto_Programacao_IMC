@@ -124,9 +124,39 @@ def salvar_historico(nome, imc, classificacao):
         arquivo.write(
             f"{nome} | IMC: {imc:.2f} | {classificacao}\n")
 
-salvar_historico(
+
+def main():
+
+    nome, idade, sexo, peso, altura = obter_dados()
+
+    imc = calcular_imc(peso, altura)
+
+    classificacao = classificar_imc(imc)
+
+    objetivo = escolher_objetivo()
+
+    suplemento = recomendar_suplemento(
+        imc,
+        objetivo
+    )
+
+    mostrar_relatorio(
+        nome,
+        idade,
+        sexo,
+        peso,
+        altura,
+        imc,
+        classificacao,
+        suplemento
+    )
+
+    salvar_historico(
+        nome,
+        imc,
+        classificacao)
+    
+    salvar_historico(
     nome,
     imc,
     classificacao)
-
-main()
