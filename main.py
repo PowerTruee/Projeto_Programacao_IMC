@@ -4,7 +4,7 @@ def obter_dados():
     idade = int(input("Digite sua idade: "))
     sexo = input("Digite seu sexo (M/F): ")
     peso = float(input("Digite seu peso (kg): "))
-    altura = float(input("Digite sua altura (m): "))
+    altura = float(input("Digite sua altura (m): ").replace(",", "."))
     return nome, idade, sexo, peso, altura
 
 def calcular_imc(peso, altura):
